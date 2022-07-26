@@ -40,6 +40,7 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     margin: 4,
     overflow: "hidden",
+    flex: 1,
   },
   buttonContainer: {
     paddingVertical: 8,
