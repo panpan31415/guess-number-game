@@ -15,7 +15,6 @@ export default function App() {
     </LinearGradient>
   );
 }
-
 const styles = StyleSheet.create({
   rootScreen: {
     backgroundColor: "#ddb52f",
