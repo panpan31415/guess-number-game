@@ -4,15 +4,28 @@ import GameScreen from "./screens/GameScreen";
 import { LinearGradient } from "expo-linear-gradient";
 import { useState } from "react";
 import colors from "./constants/colors";
+import EndGameScreen from "./screens/EndGameScreen";
 
 export default function App() {
   const [pickedNumber, setPickedNumber] = useState<number | undefined>(
     undefined
   );
+  const [isGameFinished, setGameFinished] = useState(false);
 
-  function selectScreen(pickedNumber: number | undefined) {
+  function selectScreen(
+    pickedNumber: number | undefined,
+    gameFinished: boolean
+  ) {
+    if (gameFinished) {
+      return <EndGameScreen close={() => setGameFinished(false)} />;
+    }
     if (pickedNumber) {
-      return <GameScreen pickedNumber={pickedNumber} />;
+      return (
+        <GameScreen
+          pickedNumber={pickedNumber}
+          setGameFinished={setGameFinished}
+        />
+      );
     } else {
       return <StartGameScreen setPickedNumber={setPickedNumber} />;
     }
@@ -28,7 +41,7 @@ export default function App() {
         style={{ flex: 1 }}
         imageStyle={styles.backgroundImage}>
         <SafeAreaView style={styles.rootScreen}>
-          {selectScreen(pickedNumber)}
+          {selectScreen(pickedNumber, isGameFinished)}
         </SafeAreaView>
       </ImageBackground>
     </LinearGradient>

@@ -9,7 +9,7 @@ import colors from "../../constants/colors";
 
 type Props = {
   text: string;
-  onPress: (event: GestureResponderEvent) => void;
+  onPress?: (event: GestureResponderEvent) => void;
 };
 
 function PrimaryButton(props: Props) {
