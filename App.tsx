@@ -12,7 +12,7 @@ export default function App() {
 
   function selectScreen(pickedNumber: number | undefined) {
     if (pickedNumber) {
-      return <GameScreen />;
+      return <GameScreen pickedNumber={pickedNumber} />;
     } else {
       return <StartGameScreen setPickedNumber={setPickedNumber} />;
     }
