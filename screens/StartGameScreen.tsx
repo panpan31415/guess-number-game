@@ -1,25 +1,33 @@
-import { TextInput, View } from "react-native";
+import { Alert, TextInput, View } from "react-native";
 import PrimaryButton from "../components/PrimaryButton";
 import { StyleSheet } from "react-native";
 import { useState } from "react";
+import colors from "../constants/colors";
 
-function StartGameScreen() {
+type Props = {
+  setPickedNumber: (pickedNumber: number) => void;
+};
+function StartGameScreen(props: Props) {
   function dummy() {
     console.log("I am pressed");
   }
   const [input, setInput] = useState<string>("");
 
-  const onChangeText = (newText: string) => {
-    const newInput = parseInt(newText);
-    if (Number.isNaN(newInput)) {
-      console.log("invalid input");
-      setInput("");
-    } else {
-      setInput(newText);
-    }
-  };
-
   const reset = () => setInput("");
+
+  const onConfirm = () => {
+    const newInput = parseInt(input);
+    if (Number.isNaN(newInput) || newInput <= 0 || newInput > 99) {
+      Alert.alert(
+        "Invalid Input",
+        "Input has to be a number between 1 and 99.",
+        [{ text: "Okay", style: "default", onPress: reset }]
+      );
+      console.log("invalid input");
+      return;
+    }
+    props.setPickedNumber(newInput);
+  };
 
   return (
     <View style={styles.inputContainer}>
@@ -28,11 +36,11 @@ function StartGameScreen() {
         maxLength={2}
         keyboardType="number-pad"
         value={input}
-        onChangeText={onChangeText}
+        onChangeText={(newText) => setInput(newText)}
       />
       <View style={styles.buttonGroup}>
         <PrimaryButton text="Reset" onPress={reset} />
-        <PrimaryButton text="Confirm" onPress={dummy} />
+        <PrimaryButton text="Confirm" onPress={onConfirm} />
       </View>
     </View>
   );
@@ -45,7 +53,7 @@ const styles = StyleSheet.create({
     padding: 16,
     marginHorizontal: 24,
     marginTop: 100,
-    backgroundColor: "#4e0329",
+    backgroundColor: colors.primary800,
     borderRadius: 8,
     elevation: 10, // only android,can't be translated to ios
     shadowColor: "black",
@@ -58,8 +66,8 @@ const styles = StyleSheet.create({
     height: 40,
     fontSize: 32,
     borderBottomWidth: 2,
-    borderBottomColor: "#ddb52f",
-    color: "#ddb52f",
+    borderBottomColor: colors.accent500,
+    color: colors.accent500,
     marginVertical: 8,
     fontWeight: "bold",
     textAlign: "center",

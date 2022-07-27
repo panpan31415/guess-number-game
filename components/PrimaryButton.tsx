@@ -5,6 +5,7 @@ import {
   GestureResponderEvent,
   StyleSheet,
 } from "react-native";
+import colors from "../constants/colors";
 
 type Props = {
   text: string;
@@ -16,7 +17,7 @@ function PrimaryButton(props: Props) {
     <View style={styles.buttonOuterContainer}>
       <Pressable
         onPress={props.onPress}
-        android_ripple={{ color: "#640233" }}
+        android_ripple={{ color: colors.primary600 }}
         style={(state) =>
           state.pressed
             ? [styles.buttonContainer, styles.pressed]
@@ -32,7 +33,7 @@ function PrimaryButton(props: Props) {
 
 const styles = StyleSheet.create({
   buttonOuterContainer: {
-    backgroundColor: "#72063c",
+    backgroundColor: colors.primary500,
     borderRadius: 28,
     elevation: 8,
     shadowOffset: { width: 4, height: 4 },
