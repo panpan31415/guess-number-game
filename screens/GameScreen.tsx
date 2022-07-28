@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 import { Alert, StyleSheet, Text, View } from "react-native";
+import Card from "../components/ui/Card";
 import { NumberContainer } from "../components/ui/NumberContainer";
 import PrimaryButton from "../components/ui/PrimaryButton";
 import { Title } from "../components/ui/Title";
+import colors from "../constants/colors";
+import { AntDesign } from "@expo/vector-icons";
 
 function getRandomNumber(min: number, max: number, exclude: number): number {
   const random = Math.floor(Math.random() * (max - min)) + min;
@@ -58,11 +61,17 @@ function GameScreen(props: Props) {
       <View>
         <Title text="Player's guess" />
         <NumberContainer>{guessedNumber.toString()}</NumberContainer>
-        <Text>Higher or lower?</Text>
-        <View style={styles.buttonContainer}>
-          <PrimaryButton text="-" onPress={() => getNextGuess("lower")} />
-          <PrimaryButton text="+" onPress={() => getNextGuess("higher")} />
-        </View>
+        <Card>
+          <Text style={styles.instruction}>Higher or lower?</Text>
+          <View style={styles.buttonContainer}>
+            <PrimaryButton onPress={() => getNextGuess("lower")}>
+              <AntDesign name="minus" size={24} color="#fff" />
+            </PrimaryButton>
+            <PrimaryButton onPress={() => getNextGuess("higher")}>
+              <AntDesign name="plus" size={24} color="#fff" />
+            </PrimaryButton>
+          </View>
+        </Card>
       </View>
       <View>
         <Text>Log rounds</Text>
@@ -78,6 +87,12 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     flexDirection: "row",
+  },
+  instruction: {
+    fontFamily: "open-sans",
+    fontSize: 20,
+    color: colors.accent500,
+    marginBottom: 15,
   },
 });
 

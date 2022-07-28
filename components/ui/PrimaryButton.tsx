@@ -8,7 +8,7 @@ import {
 import colors from "../../constants/colors";
 
 type Props = {
-  text: string;
+  children?: JSX.Element | JSX.Element[];
   onPress?: (event: GestureResponderEvent) => void;
 };
 
@@ -24,7 +24,7 @@ function PrimaryButton(props: Props) {
             : styles.buttonContainer
         }>
         <View>
-          <Text style={styles.buttonText}>{props.text}</Text>
+          <Text style={styles.buttonText}>{props.children}</Text>
         </View>
       </Pressable>
     </View>
@@ -50,6 +50,7 @@ const styles = StyleSheet.create({
   buttonText: {
     color: "#fff",
     textAlign: "center",
+    fontFamily: "open-sans",
   },
   pressed: {
     opacity: 0.25,
